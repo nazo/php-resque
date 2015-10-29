@@ -112,7 +112,7 @@ class Resque_Redis
     public function __construct($server, $database = null)
 	{
 		if (is_array($server)) {
-			$this->driver = new Credis_Cluster($server);
+			$this->driver = new \Credis_Cluster($server);
 		}
 		else {
 
@@ -123,7 +123,7 @@ class Resque_Redis
 			$timeout = isset($options['timeout']) ? intval($options['timeout']) : null;
 			$persistent = isset($options['persistent']) ? $options['persistent'] : '';
 
-			$this->driver = new Credis_Client($host, $port, $timeout, $persistent);
+			$this->driver = new \Credis_Client($host, $port, $timeout, $persistent);
 			if ($password){
 				$this->driver->auth($password);
 			}
@@ -227,7 +227,7 @@ class Resque_Redis
 		try {
 			return $this->driver->__call($name, $args);
 		}
-		catch (CredisException $e) {
+		catch (\CredisException $e) {
 			return false;
 		}
 	}
